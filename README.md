@@ -197,10 +197,10 @@ Use:
 This keeps the installer from dropping directly into Debian after setup.
 
 
-##Please Note
+## Please Note
 
 This script may take some time to complete, depending upon whether it is a fresh install, a pre-existing version, or has bad/outdated mirrors. Please be patient, and do not exit unless an error presents. 
 
-#WARNING
+# WARNING
 
 This is barely anything more than a proof of concept, so please go into the endeavor with that mindset. I'm not responsible for breaking or destroying current installs, or for codex wreaking havoc on your device because you chose to use YOLO flags. Good luck travelers. 
