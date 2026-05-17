@@ -129,9 +129,7 @@ Most useful flags:
 - `--distro` changes the `proot-distro` container name
 - `--codex-url` overrides the release archive URL
 
-## Screenshot Walkthrough
-
-These captures show the real install and runtime flow on device.
+## Screenshots
 
 <p align="center">
   <img src="./1.png" alt="Codux screenshot 1" width="49%">
@@ -197,3 +195,12 @@ Use:
 ```
 
 This keeps the installer from dropping directly into Debian after setup.
+
+
+##Please Note
+
+This script may take some time to complete, depending upon whether it is a fresh install, a pre-existing version, or has bad/outdated mirrors. Please be patient, and do not exit unless an error presents. 
+
+#WARNING
+
+This is barely anything more than a proof of concept, so please go into the endeavor with that mindset. I'm not responsible for breaking or destroying current installs, or for codex wreaking havoc on your device because you chose to use YOLO flags. Good luck travelers. 
