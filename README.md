@@ -120,8 +120,6 @@ Useful options:
 
 ## Screenshots
 
-These sequential captures show the real install flow on device.
-
 <p><img src="./1.png" alt="Codux screenshot 1" width="100%"></p>
 <p><img src="./2.png" alt="Codux screenshot 2" width="100%"></p>
 <p><img src="./3.png" alt="Codux screenshot 3" width="100%"></p>
