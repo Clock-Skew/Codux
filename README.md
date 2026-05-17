@@ -2,6 +2,14 @@
 
 <img src="./codux.jpg" alt="Codux banner" width="100%">
 
+<p align="center">
+  <strong>OpenAI Codex on Termux, packaged as a compact Debian proot installer for Android ARM64.</strong>
+</p>
+
+<p align="center">
+  <em>One Bash script. One Debian boundary. One clean path to Codex on Android.</em>
+</p>
+
 Codux is a lightweight Bash installer for **OpenAI Codex on Termux**. It is built for **Android ARM64** devices and uses `proot-distro` to place Debian between Termux and the Codex binary, which keeps the install path compact and predictable.
 
 [![Release](https://img.shields.io/github/v/release/Clock-Skew/Codux?style=flat-square)](https://github.com/Clock-Skew/Codux/releases/latest)
@@ -123,13 +131,6 @@ These sequential captures show the real install flow on device.
 
 ## Compatibility
 
-Validated on:
-
-- Moto G Play 2024 XT2413V
-- ARM64 Android
-- Termux
-- Debian proot
-
 Codux is conservative about compatibility. If the device is not ARM64 or Termux is badly out of date, expect install issues.
 
 ## Troubleshooting
@@ -168,23 +169,10 @@ Then run:
 codex
 ```
 
-## Notes
+## Project Facts
 
 - Version: `0.1.4`
 - Language: Bash
 - License: MIT
 - Project type: Android/Termux installer
 - Default Debian workspace: `/root/codex-work`
-
-## Search Terms
-
-Codux is aimed at people searching for:
-
-- Codex on Termux
-- OpenAI Codex Android
-- Codex CLI Termux
-- Termux Debian proot
-- OpenAI Codex ARM64 Android
-- Codex installer for Termux
-- lightweight Codex Android setup
-
