@@ -2,8 +2,9 @@
 
 <img src="./codux.jpg" alt="Codux banner" width="100%">
 
-Codux is a lightweight Bash installer for **OpenAI Codex on Termux**. It sets up a Debian proot environment on **Android ARM64**, installs the Codex CLI release inside Debian, and opens the shell so Codex can run in the environment it expects.
+Codux is a lightweight Bash installer for **OpenAI Codex on Termux**. It is built for **Android ARM64** devices and uses `proot-distro` to place Debian between Termux and the Codex binary, which keeps the install path compact and predictable.
 
+[![Release](https://img.shields.io/github/v/release/Clock-Skew/Codux?style=flat-square)](https://github.com/Clock-Skew/Codux/releases/latest)
 [![Version](https://img.shields.io/badge/version-0.1.4-1f6feb?style=flat-square)](./codux.sh)
 [![Shell](https://img.shields.io/badge/shell-bash-89e051?style=flat-square&logo=gnubash&logoColor=white)](./codux.sh)
 [![Platform](https://img.shields.io/badge/platform-Android%20%2B%20Termux-3DDC84?style=flat-square&logo=android&logoColor=white)](https://termux.dev/)
@@ -11,43 +12,38 @@ Codux is a lightweight Bash installer for **OpenAI Codex on Termux**. It sets up
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE)
 [![Codex](https://img.shields.io/badge/OpenAI-Codex-black?style=flat-square)](https://github.com/openai/codex)
 
-## Why Codux
+## What Codux Is For
 
-Most "Codex on Termux" guides are either too manual, too fragile, or tied to heavier packaging layers. Codux stays compact:
+If you are searching for any of the following, this repo is meant to be a practical answer:
 
-- one installer script
+- Codex on Termux
+- OpenAI Codex Android
+- Codex CLI Termux
+- Termux Debian proot
+- OpenAI Codex ARM64 Android
+
+Codux keeps the workflow small:
+
+- one Bash installer
 - Debian via `proot-distro`
 - official Codex Linux ARM64 musl release
-- Termux launcher helpers after install
-- predictable behavior on ARM64 Android
+- helper launchers in Termux after install
+- no Rust toolchain and no npm packaging layer
 
-This makes it easier to audit, easier to adapt, and easier to keep working on phones that are only partly compatible with desktop-style install flows.
+That makes it easier to audit, easier to adapt, and easier to understand than heavier wrapper stacks.
 
-## What It Does
+## How It Works
 
-- detects ARM64 Android/Termux
-- updates Termux packages by default to avoid partial-upgrade breakage
-- installs `proot-distro`, `curl`, `ca-certificates`, and `openssl`
-- installs Debian through `proot-distro`
-- downloads the latest Codex Linux ARM64 musl archive
-- extracts and installs Codex inside Debian
-- creates Termux helper commands
-- opens Debian after installation by default
+Codux follows a simple path:
 
-## What It Does Not Do
-
-- does not support non-ARM64 devices
-- does not replace Debian or Termux
-- does not build a custom Codex fork
-- does not hide the proot boundary
-- does not try to be a generic package manager
-
-## Requirements
-
-- Android device with ARM64 CPU
-- Termux
-- working internet connection
-- enough storage for Termux, Debian, and the Codex binary
+1. confirm the device is ARM64 Android/Termux
+2. refresh Termux packages to avoid partial-upgrade breakage
+3. install `proot-distro`, `curl`, `ca-certificates`, and `openssl`
+4. install Debian with `proot-distro`
+5. download the latest Codex Linux ARM64 musl archive
+6. install Codex inside Debian
+7. create helper commands for later use
+8. open the Debian shell so Codex is ready to run
 
 ## Install
 
@@ -56,25 +52,32 @@ chmod +x codux.sh
 ./codux.sh
 ```
 
-The installer will:
+The default install path is intentionally opinionated because Termux upgrades can break if the package stack is only partially updated.
 
-1. update Termux packages
-2. install proot dependencies
-3. install Debian
-4. install Codex inside Debian
-5. open the Debian shell when finished
+### Manual Clone
+
+If you want to clone the repo first:
+
+```bash
+git clone https://github.com/Clock-Skew/Codux.git
+cd Codux
+chmod +x codux.sh
+./codux.sh
+```
 
 ## First Run
 
-After install, Codux will already be inside the Debian proot shell.
+Codux will open the Debian proot shell after installation by default.
 
-If you want the manual flow, the command you need is:
+If you are doing the manual flow, the important step is:
 
 ```bash
 proot-distro login debian
 ```
 
-Then run Codex from inside Debian:
+Codex runs inside Debian, not directly in the Termux shell.
+
+Then run:
 
 ```bash
 codex
@@ -82,7 +85,7 @@ codex
 
 ## Helper Commands
 
-Codux creates these Termux commands:
+Codux creates these Termux helpers:
 
 - `codex-debian` - launch Codex inside Debian
 - `codex-login-debian` - run Codex device-auth login inside Debian
@@ -101,11 +104,22 @@ Codux creates these Termux commands:
 
 Useful options:
 
-- `--no-enter-distro` keeps the installer from dropping into Debian after install
-- `--no-upgrade` skips the default Termux upgrade path
+- `--no-enter-distro` skips the automatic `proot-distro login` step after install
+- `--no-upgrade` skips the Termux package upgrade path
 - `--workdir` changes the workspace directory inside Debian
 - `--distro` changes the `proot-distro` container name
 - `--codex-url` overrides the release archive URL
+
+## Screenshots
+
+These sequential captures show the real install flow on device.
+
+<p><img src="./1.png" alt="Codux screenshot 1" width="100%"></p>
+<p><img src="./2.png" alt="Codux screenshot 2" width="100%"></p>
+<p><img src="./3.png" alt="Codux screenshot 3" width="100%"></p>
+<p><img src="./4.png" alt="Codux screenshot 4" width="100%"></p>
+<p><img src="./5.png" alt="Codux screenshot 5" width="100%"></p>
+<p><img src="./6.png" alt="Codux screenshot 6" width="100%"></p>
 
 ## Compatibility
 
@@ -116,7 +130,7 @@ Validated on:
 - Termux
 - Debian proot
 
-Codux is intentionally conservative about compatibility. If a device is not ARM64 or Termux is badly out of date, expect install issues.
+Codux is conservative about compatibility. If the device is not ARM64 or Termux is badly out of date, expect install issues.
 
 ## Troubleshooting
 
@@ -138,7 +152,7 @@ Run:
 pkg upgrade -y
 ```
 
-Then rerun Codux. This repo defaults to a full upgrade because partial upgrades can break native Termux libraries.
+Then rerun Codux. This repo upgrades Termux by default because partial upgrades can break native libraries.
 
 ### I am back in Termux and Codex does not run
 
@@ -154,9 +168,17 @@ Then run:
 codex
 ```
 
+## Notes
+
+- Version: `0.1.4`
+- Language: Bash
+- License: MIT
+- Project type: Android/Termux installer
+- Default Debian workspace: `/root/codex-work`
+
 ## Search Terms
 
-Codux targets the same search intent people use when looking for:
+Codux is aimed at people searching for:
 
 - Codex on Termux
 - OpenAI Codex Android
@@ -165,11 +187,4 @@ Codux targets the same search intent people use when looking for:
 - OpenAI Codex ARM64 Android
 - Codex installer for Termux
 - lightweight Codex Android setup
-
-## Release Notes
-
-- Version: `0.1.4`
-- Language: Bash
-- License: MIT
-- Project type: Android/Termux installer
 
