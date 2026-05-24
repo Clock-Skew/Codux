@@ -6,8 +6,6 @@
 # optional dependencies may fail, but the official Linux ARM64 musl Codex
 # release can run inside a Debian userland.
 #
-# Tested POC device:
-#   Moto G Play 2024 XT2413V, ARM64, Termux, Debian proot-distro.
 
 set -Eeuo pipefail
 
